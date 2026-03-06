@@ -55,8 +55,8 @@
 
         <label class="label">Username</label>
         <input
+          id="input-username"
           type="text"
-          value="admin"
           class="input w-full"
           placeholder="Enter Username"
         />
@@ -64,17 +64,16 @@
 
         <label class="label">Password</label>
         <input
+          id="input-pw"
           type="password"
           class="input w-full"
-          value="admin123"
           placeholder="Enter Password"
         />
         <p class="text-primary">Default: admin123</p>
 
-        <button class="btn btn-primary mt-4">
-          <a href="./all.html">Login</a>
-        </button>
+        <button id="login-btn" class="btn btn-primary mt-4">Login</button>
 
+        <!-- Demo Credentials -->
         <div class="relative border-t-1 border-gray-300 my-5">
           <p class="text-center bg-base-200 absolute -top-4 left-1/2 p-2">OR</p>
           <p class="text-center mt-6 text-gray-400">Demo Credentials:</p>
@@ -90,6 +89,7 @@
       </fieldset>
     </section>
 
+    <script src="./scripts/login.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
