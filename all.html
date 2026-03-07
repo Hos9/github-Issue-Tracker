@@ -40,18 +40,21 @@
     <!-- Style File -->
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
-    <section id="navbar" class="">
+  <body class="bg-base-200">
+    <!-- NAVBAR -->
+    <section id="navbar" class="w-11/12 mx-auto">
       <div class="navbar bg-base-100 shadow-sm">
-        <div class="flex-1">
-          <a class="btn btn-ghost text-xl">daisyUI</a>
+        <div class="flex gap-2 items-center leading-8 flex-1">
+          <img class="h-10" src="./assets/github-logo.png" alt="" />
+          <h2 class="font-semibold text-2xl">GitHub Issues Tracker</h2>
         </div>
         <div class="flex gap-2">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="🔍 Search Issues..."
             class="input input-bordered w-24 md:w-auto"
           />
+          <button class="btn btn-primary">+ New Issue</button>
           <div class="dropdown dropdown-end">
             <div
               tabindex="0"
@@ -72,13 +75,59 @@
               <li>
                 <a class="justify-between">
                   Profile
-                  <span class="badge">New</span>
+                  <span id="profile-name" class="badge"></span>
                 </a>
               </li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><a href="./index.html">Logout</a></li>
             </ul>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SWITCHES -->
+    <section
+      id="switches-container"
+      class="max-w-7xl w-10/12 mx-auto mt-16 mb-4 bg-white"
+    >
+      <div id="" class="felx gap-2 p-6 border border-gray-100 shadow-sm">
+        <button id="" class="btn btn-primary w-30">All</button>
+        <button id="" class="btn w-30 bg-white">Open</button>
+        <button id="" class="btn w-30 bg-white">Close</button>
+      </div>
+    </section>
+
+    <!-- Issues Count -->
+    <section id="issues-count" class="p-6 max-w-7xl w-10/12 mx-auto bg-white">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <div>
+            <img src="./assets/Aperture.png" alt="" />
+          </div>
+          <div>
+            <h2 class="font-semibold text-xl">
+              <span id="counts">0</span> Issues
+            </h2>
+            <p class="text-gray-400">Track and manage your project issues</p>
+          </div>
+        </div>
+        <div>
+          <p>
+            <span
+              ><i
+                class="fa-solid fa-circle"
+                style="color: rgb(49, 187, 37)"
+              ></i>
+              Open</span
+            >
+            <span
+              ><i
+                class="fa-solid fa-circle"
+                style="color: rgb(122, 99, 236)"
+              ></i>
+              close</span
+            >
+          </p>
         </div>
       </div>
     </section>
