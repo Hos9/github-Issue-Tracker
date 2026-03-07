@@ -26,7 +26,7 @@ const displayAllIssues = (issues) => {
     card.innerHTML = `
       <div
         id=""
-        class="issue-card p-4 shadow-lg rounded-lg border border-gray-200"
+        class="issue-card p-4 shadow-lg rounded-lg border border-gray-200 h-full"
       >
         <div id="" class="flex justify-between items-center mb-3">
           <div id="status"><img src="${issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status.png"}" alt="" /></div>
@@ -35,36 +35,72 @@ const displayAllIssues = (issues) => {
           </div>
         </div>
         <div id="" class="">
-          <h2 class="text-sm font-semibold mb-2">
-            Fix navigation menu on mobile devices
+          <h2 id="title" class="text-sm font-semibold mb-2  truncate">
+            ${issue.title}
           </h2>
-          <p id="" class="text-xs text-gray-500 mb-3">
-            The navigation menu doesn't collapse properly on mobile devices...
+          <p id="" class="text-xs text-gray-500 mb-3 truncate">
+            ${issue.description}
           </p>
         </div>
-        <div id="" class="">
+        <div id="" class="flex gap-2">
           <button
             id="bug-btn"
-            class="text-xs btn btn-error btn-soft rounded-full"
+            class="text-xs ${
+              issue.labels[0] === "bug"
+                ? "btn btn-error"
+                : issue.labels[0] === "help wanted"
+                  ? "btn btn-warning"
+                  : issue.labels[0] === "enhancement"
+                    ? "btn btn-success"
+                    : issue.labels[0] === "good first issue"
+                      ? "btn btn-secondary"
+                      : issue.labels[0] === "documentation"
+                        ? "btn btn-info"
+                        : ""
+            } btn-soft rounded-full"
           >
-            <i class="fa-solid fa-spider" style="color: rgb(239, 68, 68)"></i>
-            BUG
+            
+            ${
+              issue.labels?.[0]
+                ? `<i class="fa-solid fa-spider" style="color: rgb(239, 68, 68)"></i>  ${issue.labels[0]}`
+                : ""
+            }
           </button>
           <button
             id="help-btn"
-            class="text-xs btn btn-warning btn-soft rounded-full"
+            class="text-xs ${
+              issue.labels[1] === "bug"
+                ? "btn btn-error"
+                : issue.labels[1] === "help wanted"
+                  ? "btn btn-warning"
+                  : issue.labels[1] === "enhancement"
+                    ? "btn btn-success"
+                    : issue.labels[1] === "good first issue"
+                      ? "btn btn-secondary"
+                      : issue.labels[1] === "documentation"
+                        ? "btn btn-info"
+                        : ""
+            } btn-soft rounded-full"
           >
-            <i
+            
+            ${
+              issue.labels?.[1]
+                ? `<i
               class="fa-solid fa-life-ring"
               style="color: rgb(217, 119, 6)"
-            ></i>
-            HELP WANTED
+            ></i>  ${issue.labels[1]}`
+                : ""
+            }
           </button>
         </div>
         <div class="border-t-1 my-4 border-gray-200"></div>
-        <div id="" class="mb-2 text-gray-400">
-          <p class="text-xs">#1 by john_doe</p>
-          <p class="text-xs">1/15/2024</p>
+        <div id="" class="mb-2 text-gray-400 flex justify-between">
+          <p class="text-xs">#${issue.id} by ${issue.author}</p>
+          <p class="text-xs">${new Date(issue.createdAt).toLocaleDateString("en-US")}</p>
+        </div>
+        <div id="" class="mb-2 text-gray-400 flex justify-between">
+          <p class="text-xs">assignee: ${issue.assignee ? issue.assignee : "Unassigned"}</p>
+          <p class="text-xs">Updated: ${new Date(issue.updatedAt).toLocaleDateString("en-US")}</p>
         </div>
       </div>
     `;
