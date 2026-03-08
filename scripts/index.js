@@ -24,9 +24,9 @@ const displayAllIssues = (issues) => {
     // 3. create element
     const card = document.createElement("div");
     card.innerHTML = `
-      <div
+      <div onclick="my_modal_5.showModal()"
         id=""
-        class="issue-card p-4 shadow-lg rounded-lg border border-gray-200 h-full"
+        class="issue-card p-4 shadow-lg rounded-lg border border-gray-200 h-full ${issue.status === "open" ? "border-3 border-t-green-400" : "border-3 border-t-purple-400"}""
       >
         <div id="" class="flex justify-between items-center mb-3">
           <div id="status"><img src="${issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status.png"}" alt="" /></div>
@@ -118,3 +118,55 @@ const displayAllIssues = (issues) => {
 };
 
 loadAllIssues();
+
+// Individual Card Open
+const loadIssueCard = async (id) => {
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayModal(details.data);
+};
+
+const displayModal = (popups) => {
+  // 1. Get modal container
+  const modalBox = document.getElementById("modal-container");
+  modalBox.innerHTML = "";
+
+  const popup = popups.forEach((popup) => {
+    const modalCard = document.createElement("div");
+    modalCard.innerHTML = `
+          <div id="modal-card">
+            <div id="modal-title" class="text-2xl font-bold mb-2">
+              Fix broken image uploads
+            </div>
+            <div id="" class="mb-6">
+              <span id="status">Opened</span> • Opened by Fahim Ahmed •
+              <span>Date</span>
+            </div>
+            <div id="" class="my-6">
+              <button class="btn btn-error btn-soft">bug</button>
+              <button class="btn btn-warning btn-soft">Help Wanted</button>
+            </div>
+            <div id="" class="description my-6">
+              The navigation menu doesn't collapse properly on mobile devices.
+              Need to fix the responsive behavior.
+            </div>
+            <div class="grid grid-cols-2 justify-start items-center">
+              <div id="" class="h-full">
+                <div class="mb-1">Assignee</div>
+                <div class="font-semibold">Assignee Name</div>
+              </div>
+              <div class="h-full">
+                <div class="mb-1">Priority</div>
+                <div class="btn btn-error rounded-full">High</div>
+              </div>
+            </div>
+          </div>
+    `;
+
+    document.getElementById("my_modal_5").showModal();
+    // modalContainer.append(popup);
+  });
+};
+
+// loadIssueCard();
