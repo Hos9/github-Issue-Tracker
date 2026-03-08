@@ -22,9 +22,9 @@ const displayAllIssues = (issues) => {
   const issue = issues.forEach((issue) => {
     // console.log(issue);
     // 3. create element
-    const card = document.createElement("div");
+    const card = document.createElement("div"); //my_modal_5.showModal()
     card.innerHTML = `
-      <div onclick="my_modal_5.showModal()"
+      <div onclick="loadCardDetails(${issue.id})"
         id=""
         class="issue-card p-4 shadow-lg rounded-lg border border-gray-200 h-full ${issue.status === "open" ? "border-3 border-t-green-400" : "border-3 border-t-purple-400"}""
       >
@@ -38,7 +38,7 @@ const displayAllIssues = (issues) => {
           <h2 id="title" class="text-sm font-semibold mb-2  truncate">
             ${issue.title}
           </h2>
-          <p id="" class="text-xs text-gray-500 mb-3 truncate">
+          <p id="" class="text-xs text-gray-500 mb-3 line-clamp-2">
             ${issue.description}
           </p>
         </div>
@@ -120,53 +120,69 @@ const displayAllIssues = (issues) => {
 loadAllIssues();
 
 // Individual Card Open
-const loadIssueCard = async (id) => {
+const loadCardDetails = async (id) => {
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+  // console.log(url);
   const res = await fetch(url);
   const details = await res.json();
-  displayModal(details.data);
+  displayCardDetails(details.data);
 };
 
-const displayModal = (popups) => {
-  // 1. Get modal container
-  const modalBox = document.getElementById("modal-container");
-  modalBox.innerHTML = "";
+const displayCardDetails = (issue) => {
+  console.log(issue);
 
-  const popup = popups.forEach((popup) => {
-    const modalCard = document.createElement("div");
-    modalCard.innerHTML = `
-          <div id="modal-card">
-            <div id="modal-title" class="text-2xl font-bold mb-2">
-              Fix broken image uploads
-            </div>
-            <div id="" class="mb-6">
-              <span id="status">Opened</span> • Opened by Fahim Ahmed •
-              <span>Date</span>
-            </div>
-            <div id="" class="my-6">
-              <button class="btn btn-error btn-soft">bug</button>
-              <button class="btn btn-warning btn-soft">Help Wanted</button>
-            </div>
-            <div id="" class="description my-6">
-              The navigation menu doesn't collapse properly on mobile devices.
-              Need to fix the responsive behavior.
-            </div>
-            <div class="grid grid-cols-2 justify-start items-center">
-              <div id="" class="h-full">
-                <div class="mb-1">Assignee</div>
-                <div class="font-semibold">Assignee Name</div>
-              </div>
-              <div class="h-full">
-                <div class="mb-1">Priority</div>
-                <div class="btn btn-error rounded-full">High</div>
-              </div>
-            </div>
-          </div>
-    `;
-
-    document.getElementById("my_modal_5").showModal();
-    // modalContainer.append(popup);
-  });
+  const modalContainer = document.getElementById("modal-container");
+  modalContainer.innerHTML = `
+  <div id="modal-card">
+    <div id="modal-title" class="text-2xl font-bold mb-2">
+      ${issue.title}
+    </div>
+    <div id="" class="mb-6 text-gray-400 text-xs">
+      <span id="status" class="btn  text-xs ${issue.status === "open" ? "btn-accent" : "btn-info"} rounded-full ">${issue.status === "open" ? "Open" : "Close"}</span>  •  Opened by ${issue.assignee ? issue.assignee : "Unassigned"}  • 
+      <span>${new Date(issue.updatedAt).toLocaleDateString("en-US")}</span>
+    </div>
+    <div id="" class="my-6  text-sm">
+      <button class="btn ${
+        issue.labels[0] === "bug"
+          ? "btn btn-error"
+          : issue.labels[0] === "help wanted"
+            ? "btn btn-warning"
+            : issue.labels[0] === "enhancement"
+              ? "btn btn-success"
+              : issue.labels[0] === "good first issue"
+                ? "btn btn-secondary"
+                : issue.labels[0] === "documentation"
+                  ? "btn btn-info"
+                  : ""
+      } btn-soft rounded-full">${issue.labels[0]}</button>
+      <button class="btn ${
+        issue.labels[1] === "bug"
+          ? "btn btn-error"
+          : issue.labels[1] === "help wanted"
+            ? "btn btn-warning"
+            : issue.labels[1] === "enhancement"
+              ? "btn btn-success"
+              : issue.labels[1] === "good first issue"
+                ? "btn btn-secondary"
+                : issue.labels[1] === "documentation"
+                  ? "btn btn-info"
+                  : ""
+      } btn-soft rounded-full">${issue.labels[1]}</button>
+    </div>
+    <div id="" class="description my-6 text-gray-500 text-sm">
+      ${issue.description}
+    </div>
+    <div class="grid grid-cols-2 justify-start items-center">
+      <div id="" class="h-full">
+        <div class="mb-1 text-gray-400  text-xs">Assignee</div>
+        <div class="font-semibold  text-sm">${issue.assignee ? issue.assignee : "Unassigned"}</div>
+      </div>
+      <div class="h-full  text-sm">
+        <div class="mb-1 text-gray-400 text-xs">Priority</div>
+        <div class="btn btn-error  text-sm rounded-full">${issue.priority}</div>
+      </div>
+    </div>
+  </div>
+  `;
+  document.getElementById("card_modal").showModal();
 };
-
-// loadIssueCard();
