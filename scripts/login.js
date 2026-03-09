@@ -6,7 +6,7 @@ document.getElementById("login-btn").addEventListener("click", function () {
   // console.log(document.getElementById("login-btn"));
 
   if (userName == "admin" && password == "admin123") {
-    alert("Login Success");
+    // alert("Login Success");
     window.location.assign("./all.html");
   } else {
     alert("Login Failed!! Username or Password not matched!!");

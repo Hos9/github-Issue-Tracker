@@ -2,6 +2,8 @@
 
 // 1.0 Load All Issues
 const loadAllIssues = () => {
+  // showSpinner();
+
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
   fetch(url)
     .then((res) => res.json())
@@ -107,6 +109,8 @@ const displayAllIssues = (issues) => {
 
     // 4, Append Child
     issueContainer.append(card);
+
+    hideSpinner();
   });
 
   // 2.0 Count All Issues
@@ -189,6 +193,8 @@ const displayCardDetails = (issue) => {
 
 // Active Button Added
 async function setActive(id) {
+  showSpinner();
+
   const res = await fetch(
     "https://phi-lab-server.vercel.app/api/v1/lab/issues",
   );
@@ -221,3 +227,23 @@ async function setActive(id) {
       .then((item) => displayAllIssues(item.data));
   }
 }
+
+// Spinner
+
+const showSpinner = () => {
+  const spinner = document.getElementById("spinner");
+  const allSection = document.getElementById("issue-container");
+  const issueCountSection = document.getElementById("issues-count");
+  spinner.classList.remove("hidden");
+  allSection.classList.add("hidden");
+  issueCountSection.classList.add("hidden");
+};
+
+const hideSpinner = () => {
+  const spinner = document.getElementById("spinner");
+  const allSection = document.getElementById("issue-container");
+  const issueCountSection = document.getElementById("issues-count");
+  spinner.classList.add("hidden");
+  allSection.classList.remove("hidden");
+  issueCountSection.classList.remove("hidden");
+};
