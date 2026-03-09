@@ -133,7 +133,7 @@ const loadCardDetails = async (id) => {
 };
 
 const displayCardDetails = (issue) => {
-  console.log(issue);
+  // console.log(issue);
 
   const modalContainer = document.getElementById("modal-container");
   modalContainer.innerHTML = `
