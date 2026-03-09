@@ -188,20 +188,6 @@ const displayCardDetails = (issue) => {
 };
 
 // Active Button Added
-// const allBtn = document.getElementById("allBtn");
-// const openBtn = document.getElementById("openBtn");
-// const closeBtn = document.getElementById("closeBtn");
-// const buttons = [allBtn, openBtn, closeBtn];
-
-// function setActive(target) {
-//   buttons.forEach((b) => b.classList.remove("btn-primary"));
-//   target.classList.add("btn-primary");
-// }
-
-// allBtn.addEventListener("click", () => setActive(allBtn));
-// openBtn.addEventListener("click", () => setActive(openBtn));
-// closeBtn.addEventListener("click", () => setActive(closeBtn));
-
 async function setActive(id) {
   const res = await fetch(
     "https://phi-lab-server.vercel.app/api/v1/lab/issues",
