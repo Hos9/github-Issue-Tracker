@@ -58,7 +58,7 @@ const displayAllIssues = (issues) => {
                       ? "btn btn-secondary"
                       : issue.labels[0] === "documentation"
                         ? "btn btn-info"
-                        : ""
+                        : "hidden"
             } btn-soft rounded-full"
           >
             
@@ -81,7 +81,7 @@ const displayAllIssues = (issues) => {
                       ? "btn btn-secondary"
                       : issue.labels[1] === "documentation"
                         ? "btn btn-info"
-                        : ""
+                        : "hidden"
             } btn-soft rounded-full"
           >
             
@@ -170,7 +170,7 @@ const displayCardDetails = (issue) => {
                 ? "btn btn-secondary"
                 : issue.labels[1] === "documentation"
                   ? "btn btn-info"
-                  : ""
+                  : "hidden"
       } btn-soft rounded-full">${issue.labels[1]}</button>
     </div>
     <div id="" class="description my-6 text-gray-500 text-sm">
