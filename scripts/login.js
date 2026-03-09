@@ -1,5 +1,5 @@
 // Login Button
-document.getElementById("login-btn").addEventListener("click", function () {
+document.getElementById("login-btn").addEventListener("click", () => {
   const userName = document.getElementById("input-username").value;
   const password = document.getElementById("input-pw").value;
 

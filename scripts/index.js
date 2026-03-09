@@ -28,7 +28,7 @@ const displayAllIssues = (issues) => {
     card.innerHTML = `
       <div onclick="loadCardDetails(${issue.id})"
         id=""
-        class="card issue-card p-4 shadow-lg rounded-lg border border-gray-200 h-full ${issue.status === "open" ? "border-3 border-t-green-400" : "border-3 border-t-purple-400"}""
+        class="card issue-card p-4 shadow-lg rounded-lg hover:scale-105 cursor-pointer border border-gray-200 h-full ${issue.status === "open" ? "border-3 border-t-green-400" : "border-3 border-t-purple-400"}""
       >
         <div id="" class="flex justify-between items-center mb-3">
           <div id="status"><img src="${issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status.png"}" alt="" /></div>
