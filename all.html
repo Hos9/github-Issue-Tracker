@@ -50,23 +50,30 @@
         </div>
         <div class="flex gap-2">
           <input
+            id="inputSearch"
             type="text"
             placeholder="🔍 Search Issues..."
             class="input input-bordered w-24 md:w-auto"
           />
-          <button class="btn btn-primary">+ New Issue</button>
+          <button
+            onclick="setActive(id)"
+            id="issueSearchBtn"
+            class="btn btn-primary"
+          >
+            Search
+          </button>
           <div class="dropdown dropdown-end">
             <div
               tabindex="0"
               role="button"
               class="btn btn-ghost btn-circle avatar"
             >
-              <div class="w-10 rounded-full">
+              <!-- <div class="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
                   src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                 />
-              </div>
+              </div> -->
             </div>
             <ul
               tabindex="-1"
@@ -94,9 +101,27 @@
         id=""
         class="felx gap-2 gap-y-2 p-6 border border-gray-100 shadow-sm"
       >
-        <button id="" class="btn btn-primary w-30">All</button>
-        <button id="" class="btn w-30 font-medium bg-white">Open</button>
-        <button id="" class="btn w-30 font-medium bg-white">Close</button>
+        <button
+          onclick="setActive(id)"
+          id="allBtn"
+          class="btn_cmn switch btn btn-primary w-30"
+        >
+          All
+        </button>
+        <button
+          onclick="setActive(id)"
+          id="openBtn"
+          class="btn_cmn switch btn w-30 font-medium"
+        >
+          Open
+        </button>
+        <button
+          onclick="setActive(id)"
+          id="closeBtn"
+          class="btn_cmn switch btn w-30 font-medium"
+        >
+          Close
+        </button>
       </div>
     </section>
 

@@ -26,7 +26,7 @@ const displayAllIssues = (issues) => {
     card.innerHTML = `
       <div onclick="loadCardDetails(${issue.id})"
         id=""
-        class="issue-card p-4 shadow-lg rounded-lg border border-gray-200 h-full ${issue.status === "open" ? "border-3 border-t-green-400" : "border-3 border-t-purple-400"}""
+        class="card issue-card p-4 shadow-lg rounded-lg border border-gray-200 h-full ${issue.status === "open" ? "border-3 border-t-green-400" : "border-3 border-t-purple-400"}""
       >
         <div id="" class="flex justify-between items-center mb-3">
           <div id="status"><img src="${issue.status === "open" ? "./assets/Open-Status.png" : "./assets/Closed-Status.png"}" alt="" /></div>
@@ -186,3 +186,52 @@ const displayCardDetails = (issue) => {
   `;
   document.getElementById("card_modal").showModal();
 };
+
+// Active Button Added
+// const allBtn = document.getElementById("allBtn");
+// const openBtn = document.getElementById("openBtn");
+// const closeBtn = document.getElementById("closeBtn");
+// const buttons = [allBtn, openBtn, closeBtn];
+
+// function setActive(target) {
+//   buttons.forEach((b) => b.classList.remove("btn-primary"));
+//   target.classList.add("btn-primary");
+// }
+
+// allBtn.addEventListener("click", () => setActive(allBtn));
+// openBtn.addEventListener("click", () => setActive(openBtn));
+// closeBtn.addEventListener("click", () => setActive(closeBtn));
+
+async function setActive(id) {
+  const res = await fetch(
+    "https://phi-lab-server.vercel.app/api/v1/lab/issues",
+  );
+  const data = await res.json();
+  const allBtn = document.getElementById(id);
+  const buttons = document.getElementsByClassName("btn_cmn");
+
+  for (let btn of buttons) {
+    btn.classList.remove("btn-primary");
+  }
+
+  allBtn.classList.add("btn-primary");
+
+  if (id == "allBtn") {
+    loadAllIssues();
+  } else if (id == "openBtn") {
+    const openCards = data.data.filter((card) => card.status === "open");
+    displayAllIssues(openCards);
+  } else if (id == "closeBtn") {
+    const closeCards = data.data.filter((card) => card.status === "closed");
+    displayAllIssues(closeCards);
+  } else if (id == "issueSearchBtn") {
+    const inputSearch = document.getElementById("inputSearch");
+    const inputSearchValue = inputSearch.value.toLowerCase();
+
+    fetch(
+      `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${inputSearchValue}`,
+    )
+      .then((res) => res.json())
+      .then((item) => displayAllIssues(item.data));
+  }
+}
